@@ -758,6 +758,46 @@
             <selected>!Skin.HasSetting(Background.DisableVideo)</selected>
             <onclick>Skin.ToggleSetting(Background.DisableVideo)</onclick>
         </include>
+        <!-- YB fork: start info -->
+        <include content="Settings_Label" description="Start info">
+            <param name="window">skinsettings</param>
+            <param name="baseid">$PARAM[baseid]</param>
+            <param name="id">050</param>
+            <label>Start info</label>
+        </include>
+        <include content="Settings_Button" description="Start info: on or off">
+            <param name="help">Show the info panel and the media flags - resolution, codecs, HDR or Dolby Vision, audio - for a few seconds when a video starts.</param>
+            <param name="window">skinsettings</param>
+            <param name="baseid">$PARAM[baseid]</param>
+            <param name="id">051</param>
+            <param name="control">radiobutton</param>
+            <label>Show when a video starts</label>
+            <selected>!Skin.HasSetting(StartInfo.Disable)</selected>
+            <onclick>Skin.ToggleSetting(StartInfo.Disable)</onclick>
+        </include>
+        <include content="Settings_Button" description="Start info: duration">
+            <param name="help">How long the start info stays on screen.</param>
+            <param name="window">skinsettings</param>
+            <param name="baseid">$PARAM[baseid]</param>
+            <param name="id">052</param>
+            <label>Duration</label>
+            <label2>$VAR[Label_StartInfo_Seconds]</label2>
+            <onclick condition="Skin.String(StartInfo.Seconds,3)">Skin.SetString(StartInfo.Seconds,5)</onclick>
+            <onclick condition="Skin.String(StartInfo.Seconds,5)">Skin.SetString(StartInfo.Seconds,7)</onclick>
+            <onclick condition="Skin.String(StartInfo.Seconds,7)">Skin.Reset(StartInfo.Seconds)</onclick>
+            <onclick condition="![Skin.String(StartInfo.Seconds,3) | Skin.String(StartInfo.Seconds,5) | Skin.String(StartInfo.Seconds,7)]">Skin.SetString(StartInfo.Seconds,3)</onclick>
+            <visible>!Skin.HasSetting(StartInfo.Disable)</visible>
+        </include>
+        <include content="Settings_Button" description="Start info: content">
+            <param name="help">Show the full info panel with the media flags, or only the row of media flags.</param>
+            <param name="window">skinsettings</param>
+            <param name="baseid">$PARAM[baseid]</param>
+            <param name="id">053</param>
+            <label>Show</label>
+            <label2>$VAR[Label_StartInfo_Content]</label2>
+            <onclick>Skin.ToggleSetting(StartInfo.FlagsOnly)</onclick>
+            <visible>!Skin.HasSetting(StartInfo.Disable)</visible>
+        </include>
     </include>
 
     <!-- Seasonal -->

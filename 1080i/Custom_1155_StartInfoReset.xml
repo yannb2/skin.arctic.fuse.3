@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    YB fork: helper for Custom_1154_StartInfo.xml (start info).
+    Once the start info timer has fired and full-screen video is closed, this invisible dialog
+    opens for a moment and clears the flag, so the next video shows the start info again.
+-->
+<window type="dialog" id="1155">
+    <visible>!Window.IsActive(VideoFullScreen.xml) + !String.IsEmpty(Window(Home).Property(StartInfo.Done))</visible>
+    <onload>ClearProperty(StartInfo.Done,Home)</onload>
+    <controls />
+</window>

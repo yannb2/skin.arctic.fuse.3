@@ -1,3 +1,6 @@
+> **Arctic Fuse 3 YB:** this is Yann's fork of signde's avdvplus/p3i build. What it changes,
+> how to build the zip and how to merge upstream: [yb/README.md](yb/README.md).
+
 
 # Arctic Fuse [![License](https://img.shields.io/badge/license-CC--NC--SA%204.0-green)](http://creativecommons.org/licenses/by-nc-sa/4.0/)
 

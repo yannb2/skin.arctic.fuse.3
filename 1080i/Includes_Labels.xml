@@ -317,13 +317,13 @@
     </variable>
 
     <variable name="Label_Settings_InfoText">
-        <value condition="System.HasVisibleModalDialog | Control.HasFocus(60) | Control.HasFocus(20)">$INFO[System.BuildVersionCode,CoreELEC ]$INFO[System.AddonVersion(skin.arctic.fuse.3),• Arctic Fuse 3 • , (avdvplus/p3i)]</value>
+        <value condition="System.HasVisibleModalDialog | Control.HasFocus(60) | Control.HasFocus(20)">$INFO[System.BuildVersionCode,CoreELEC ]$INFO[System.AddonVersion(skin.arctic.fuse.3.yb),• Arctic Fuse 3 YB • , (avdvplus/p3i)]</value>
         <value condition="Window.IsVisible(SettingsCategory.xml) + [ControlGroup(3).HasFocus() | ControlGroup(5).HasFocus()]">$INFO[Control.GetLabel(6)]</value>
         <value condition="[Window.IsVisible(SkinSettings.xml) + ControlGroup(10001).HasFocus()] | [Window.IsVisible(Custom_1115_Window_Shortcuts.xml) + ControlGroup(3000).HasFocus()]">$INFO[Window.Property(InfoText.Message)]</value>
         <value condition="Window.IsVisible(SkinSettings.xml)">$VAR[Label_SkinSettings_CategoryDescription]</value>
         <value condition="Window.IsVisible(Custom_1115_Window_Shortcuts.xml)">$VAR[Label_Shortcuts_CategoryDescription]</value>
         <value condition="Window.IsVisible(addonbrowser) + Control.HasFocus(50)">$INFO[Container(50).ListItem.AddonName,, • ]$INFO[Container(50).ListItem.AddonVersion,v,]$INFO[Container(50).ListItem.AddonOrigin, • ,]</value>
-        <value>$INFO[System.BuildVersionCode,CoreELEC ]$INFO[System.AddonVersion(skin.arctic.fuse.3),• Arctic Fuse 3 • , (avdvplus/p3i)]</value>
+        <value>$INFO[System.BuildVersionCode,CoreELEC ]$INFO[System.AddonVersion(skin.arctic.fuse.3.yb),• Arctic Fuse 3 YB • , (avdvplus/p3i)]</value>
     </variable>
 
     <variable name="Label_Settings_NavigationOnBack">
@@ -522,6 +522,18 @@
         <value condition="Skin.String(OSD.AutoOnPause,Hide)">$LOCALIZE[31162]</value>
         <value condition="Skin.String(OSD.AutoOnPause,Info)">$LOCALIZE[29915]</value>
         <value>$LOCALIZE[16018]</value>
+    </variable>
+
+    <!-- YB fork: start info -->
+    <variable name="Label_StartInfo_Seconds">
+        <value condition="Skin.String(StartInfo.Seconds,3)">3 s</value>
+        <value condition="Skin.String(StartInfo.Seconds,5)">5 s</value>
+        <value condition="Skin.String(StartInfo.Seconds,7)">7 s</value>
+        <value>10 s</value>
+    </variable>
+    <variable name="Label_StartInfo_Content">
+        <value condition="Skin.HasSetting(StartInfo.FlagsOnly)">Flags only</value>
+        <value>Panel and flags</value>
     </variable>
 
     <variable name="Label_Setting_SeekbarPauseDelay">
