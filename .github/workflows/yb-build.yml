@@ -1,0 +1,38 @@
+name: YB build
+
+# Checks the skin XML and builds the installable zip on every push and PR.
+# A tag like yb-v73.3.4.18.1 also publishes a GitHub release with the zip attached.
+# (Upstream's release.yml only reacts to tags starting with "v", so the two don't clash.)
+
+on:
+  push:
+    branches: [omega]
+    tags: ["yb-v*"]
+  pull_request:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Check XML and build zip
+        run: python3 yb/make_zip.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: skin-zip
+          path: dist/*.zip
+      - name: Publish release
+        if: startsWith(github.ref, 'refs/tags/yb-v')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" dist/*.zip \
+            --repo "$GITHUB_REPOSITORY" \
+            --title "$GITHUB_REF_NAME" \
+            --notes "Install on the box: Add-ons > Install from zip file. See yb/README.md."

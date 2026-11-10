@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    YB fork: start info overlay (modelled on Arctic Zephyr Reloaded's
+    "Show detailed info when video starts"). When a video goes full screen it shows, for 10 seconds:
+      - the same panel as the Info button (art, title/logo, info line, plot), and
+      - a row of media flags read from the PLAYER (not the library): resolution, aspect,
+        video codec, HDR / Dolby Vision (with signde's FEL / MEL flags), audio codec / Atmos, channels.
+    Helper: Custom_1155_StartInfoReset.xml. Settings: Skin settings > Playback > Start info
+    (SkinSettings_Items_Playback in Includes_SkinSettings.xml, labels in Includes_Labels.xml).
+    Settings it reads (defaults when never set: on, 10 seconds, panel and flags):
+      Skin.HasSetting(StartInfo.Disable), Skin.String(StartInfo.Seconds) = 3/5/7/empty (10),
+      Skin.HasSetting(StartInfo.FlagsOnly).
+-->
+<window type="dialog" id="1154">
+    <zorder>1</zorder>
+
+    <!-- Only full-screen video, and only until the timer has fired once for this full-screen session -->
+    <visible>!Skin.HasSetting(StartInfo.Disable)</visible>
+    <visible>Window.IsActive(VideoFullScreen.xml)</visible>
+    <visible>Player.HasVideo + !Player.HasGame + !VideoPlayer.Content(livetv)</visible>
+    <visible>String.IsEmpty(Window(Home).Property(StartInfo.Done))</visible>
+
+    <!-- Step aside for the skin's own OSD, seek bar, Info panel and dialogs -->
+    <visible>!Window.IsActive(videoosd)</visible>
+    <visible>!Window.IsVisible(1152)</visible>
+    <visible>!Window.IsActive(DialogSeekBar.xml)</visible>
+    <visible>!Window.IsActive(DialogSubtitles.xml)</visible>
+    <visible>!Window.IsVisible(DialogPlayerProcessInfo.xml)</visible>
+
+    <!-- Start the timer once; reopening after a pause or seek doesn't restart it -->
+    <onload condition="!System.HasAlarm(StartInfoTimer) + Skin.String(StartInfo.Seconds,3)">AlarmClock(StartInfoTimer,SetProperty(StartInfo.Done,1,Home),00:03,silent)</onload>
+    <onload condition="!System.HasAlarm(StartInfoTimer) + Skin.String(StartInfo.Seconds,5)">AlarmClock(StartInfoTimer,SetProperty(StartInfo.Done,1,Home),00:05,silent)</onload>
+    <onload condition="!System.HasAlarm(StartInfoTimer) + Skin.String(StartInfo.Seconds,7)">AlarmClock(StartInfoTimer,SetProperty(StartInfo.Done,1,Home),00:07,silent)</onload>
+    <onload condition="!System.HasAlarm(StartInfoTimer) + ![Skin.String(StartInfo.Seconds,3) | Skin.String(StartInfo.Seconds,5) | Skin.String(StartInfo.Seconds,7)]">AlarmClock(StartInfoTimer,SetProperty(StartInfo.Done,1,Home),00:10,silent)</onload>
+
+    <animation effect="fade" start="0" end="100" time="300">WindowOpen</animation>
+    <animation effect="fade" start="100" end="0" time="300">WindowClose</animation>
+
+    <controls>
+        <!-- Dark gradient at the bottom, the same one the seek bar draws behind the Info panel -->
+        <control type="image">
+            <bottom>0</bottom>
+            <height>768</height>
+            <texture colordiffuse="panel_bg_70" border="4,0,4,0">common/gradient-v.png</texture>
+            <visible>!Skin.HasSetting(StartInfo.FlagsOnly)</visible>
+        </control>
+        <control type="image">
+            <bottom>0</bottom>
+            <height>256</height>
+            <texture colordiffuse="panel_bg_70" border="4,0,4,0">common/gradient-v.png</texture>
+            <visible>Skin.HasSetting(StartInfo.FlagsOnly)</visible>
+        </control>
+
+        <!-- The skin's Info panel (same include and settings as Custom_1152_OSD_VideoInfoOverlay.xml) -->
+        <control type="group">
+            <visible>!Skin.HasSetting(StartInfo.FlagsOnly)</visible>
+            <include content="OSD_Progress_Details_Extended">
+                <param name="align">bottom</param>
+                <param name="landscape_visible">!Skin.HasSetting(OSD.InfoOverlay.DisableLandscapeOnInfo)</param>
+                <param name="plot_visible">!Skin.HasSetting(OSD.InfoOverlay.DisablePlotRatingsOnInfo)</param>
+            </include>
+        </control>
+
+        <!-- Media flags from the player, in the space the seek bar normally uses -->
+        <control type="group">
+            <left>view_pad</left>
+            <right>view_pad</right>
+            <bottom>100</bottom>
+            <height>80</height>
+            <include content="Furniture_Codecs">
+                <param name="colordiffuse">white</param>
+                <param name="visible">true</param>
+                <param name="show_studio">false</param>
+                <param name="show_sourcequality">false</param>
+                <param name="image_hdrtype">$VAR[Image_OSD_SourceHDRType]</param>
+                <param name="image_videocodec">$VAR[Image_OSD_SourceVideoCodec]</param>
+                <param name="image_audiocodec">$VAR[Image_OSD_SourceAudioCodec]</param>
+                <param name="infolabel_videoresolution">VideoPlayer.VideoResolution</param>
+                <param name="infolabel_videoaspect">VideoPlayer.VideoAspect</param>
+                <param name="infolabel_videocodec">VideoPlayer.VideoCodec</param>
+                <param name="infolabel_audiocodec">VideoPlayer.AudioCodec</param>
+                <param name="infolabel_audiochannels">VideoPlayer.AudioChannels</param>
+                <param name="align">left</param>
+                <param name="itemgap">16</param>
+            </include>
+        </control>
+    </controls>
+</window>

@@ -1,4 +1,4 @@
-<addon id="skin.arctic.fuse.3" name="Arctic Fuse 3 (avdvplus/p3i)" provider-name="jurialmunkey, jamal2362, signde" version="73.3.4.18">
+<addon id="skin.arctic.fuse.3.yb" name="Arctic Fuse 3 YB (avdvplus/p3i)" provider-name="jurialmunkey, jamal2362, signde, yannb2" version="73.3.4.18.1">
     <requires>
         <import addon="xbmc.gui" version="5.17.0" />
         <import addon="script.skinvariables" version="2.2.13" />
@@ -38,6 +38,7 @@
         <forum />
         <source />
         <news>
+            [I][COLOR FFFF9800]v73.3.4.18.1 (YB fork)[/COLOR][/I][CR]- Own add-on ID skin.arctic.fuse.3.yb, installs next to signde's skin.[CR]- Start info: Info panel and media flags for a few seconds when a video starts, with settings in Skin settings - Playback.[CR][CR]
             [I][COLOR FFFF9800]v73.3.4.18-omega[/COLOR][/I][CR]- Updated to upstream v3.4.18.[CR][CR]
             [I][COLOR FFFF9800]v73.3.4.15-omega[/COLOR][/I][CR]- Fixed missing boxes around infoline details.[CR][CR]
             [I][COLOR FFFF9800]v72.3.4.15-omega[/COLOR][/I][CR]- Updated to upstream v3.4.15.[CR][CR]

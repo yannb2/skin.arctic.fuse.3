@@ -7,8 +7,8 @@
     </variable>
 
     <variable name="Path_SkinVariables_SkinFolder">
-        <value condition="!String.IsEmpty(Skin.String(SkinVariables.SkinUser))">skin.arctic.fuse.3$INFO[Skin.String(SkinVariables.SkinUser),-,]</value>
-        <value>skin.arctic.fuse.3</value>
+        <value condition="!String.IsEmpty(Skin.String(SkinVariables.SkinUser))">skin.arctic.fuse.3.yb$INFO[Skin.String(SkinVariables.SkinUser),-,]</value>
+        <value>skin.arctic.fuse.3.yb</value>
     </variable>
 
     <!-- Hubs window (1115): the hubs menu in edit mode, listed once any migration has run -->
